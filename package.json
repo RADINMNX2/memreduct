@@ -1,0 +1,82 @@
+{
+  "name": "memreduct",
+  "version": "1.0.0",
+  "description": "Mem Reduct — a modern memory cleaner for Windows. Neon UI rebuild.",
+  "main": "main.js",
+  "homepage": ".",
+  "license": "GPL-3.0",
+  "author": "Henry++ (UI rebuild)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "electron:dev": "concurrently -k \"cross-env BROWSER=none vite\" \"wait-on tcp:5173 && cross-env NODE_ENV=development electron .\"",
+    "electron:build": "npm run build && electron-builder -w",
+    "dist": "npm run build && electron-builder -w"
+  },
+  "build": {
+    "extends": null,
+    "appId": "com.memreduct.app",
+    "productName": "Mem Reduct",
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js",
+      "scripts/**/*"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "buildResources"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "buildResources/icon.png",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Mem Reduct"
+    }
+  },
+  "dependencies": {
+    "lucide-react": "^0.292.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.0.5",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
+    "wait-on": "^7.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "allowScripts": {
+    "electron@33.4.11": true,
+    "esbuild@0.21.5": true
+  }
+}
